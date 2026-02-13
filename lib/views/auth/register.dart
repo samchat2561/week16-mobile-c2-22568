@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_week16/views/auth/login.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -9,16 +10,20 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool showPass = false;
+  bool showPass2 = false;
+
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final fullNameController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
 
-  void login() {
+  void register() {
     if (formKey.currentState!.validate()) {
       debugPrint(emailController.text);
       debugPrint(passwordController.text);
       debugPrint(fullNameController.text);
+      debugPrint(confirmPasswordController.text);
     } else {
       debugPrint('Have error in form');
     }
@@ -75,10 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           if (value == null || value.isEmpty) {
                             debugPrint('full name is empty');
                             return 'full name is empty';
-                          } else if (!isEmailValid(value)) {
-                            debugPrint('full name is invalid');
-                            return 'full name is invalid';
-                          }
+                          } 
                           return null;
                         },
                         decoration: InputDecoration(
@@ -201,11 +203,67 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                       ),
                       SizedBox(height: 15.0),
+                      //===== Text Field Confirm Password =====
+                      TextFormField(
+                        controller: confirmPasswordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        obscureText: showPass2 ? false : true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            debugPrint('confirm password is empty');
+                            return 'confirm password is empty';
+                          }
+                          if (value != passwordController.text) {
+                            debugPrint('passwords do not match');
+                            return 'passwords do not match';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Enter your password',
+                          label: Text("Password"),
+                          labelStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18.0,
+                            fontFamily: "verdana_regular",
+                            fontWeight: FontWeight.w400,
+                          ),
+                          prefixIcon: Icon(Icons.vpn_key_sharp),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                showPass2 = !showPass2;
+                              });
+                            },
+                            icon: Icon(
+                              showPass2
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15.0),
                       //===== Button submit Login =====
                       InkWell(
                         onTap: () {
                           setState(() {
-                            login();
+                            register();
                           });
                         },
                         child: Container(
@@ -222,7 +280,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               Icon(Icons.lock_open, color: Colors.white),
                               SizedBox(width: 5.0),
                               Text(
-                                'Sign in - App Account',
+                                'Sign up - App Account',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20.0,
@@ -238,11 +296,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(height: 20.0),
-                //===== Button Link Register =====
+                //===== Button Link Login =====
                 Row(
                   children: [
                     Text(
-                      "Don't have an account?",
+                      "Allredy have an account?",
                       style: TextStyle(fontSize: 18.0, color: Colors.black54),
                     ),
                     const SizedBox(width: 10.0),
@@ -252,13 +310,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegisterScreen(),
+                              builder: (context) => const LoginScreen(),
                             ),
                           );
                         });
                       },
                       child: Text(
-                        'Sign Up',
+                        'Sign In',
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Colors.orange,
