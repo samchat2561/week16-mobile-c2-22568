@@ -9,6 +9,9 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool showPass = false;
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +46,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 //===== Form Login =====
                 Form(
+                  key: formKey,
                   child: Column(
                     children: [
                       //===== Text Field Email =====
                       TextFormField(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            debugPrint('email is empty');
+                            return 'email is empty';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           hintText: 'Enter your email or username',
                           label: Text("Email or username"),
@@ -76,7 +89,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 15.0),
                       //===== Text Field Password =====
                       TextFormField(
+                        controller: passwordController,
+                        keyboardType: TextInputType.visiblePassword,
                         obscureText: showPass ? false : true,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            debugPrint('password is empty');
+                            return 'password is empty';
+                          }
+                          return null;
+                        },
                         decoration: InputDecoration(
                           hintText: 'Enter your password',
                           label: Text("Password"),
@@ -119,6 +141,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(height: 15.0),
                       //===== Button submit Login =====
                       InkWell(
+                        onTap: () {
+                          debugPrint(emailController.text);
+                          debugPrint(passwordController.text);
+                        },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
                           height: 55.0,
