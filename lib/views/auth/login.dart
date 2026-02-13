@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_week16/views/auth/register.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +13,22 @@ class _LoginScreenState extends State<LoginScreen> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void login() {
+    if (formKey.currentState!.validate()) {
+      debugPrint(emailController.text);
+      debugPrint(passwordController.text);
+    } else {
+      debugPrint('Have error in form');
+    }
+  }
+
+  bool isEmailValid(String email) {
+    RegExp regex = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    );
+    return regex.hasMatch(email);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value == null || value.isEmpty) {
                             debugPrint('email is empty');
                             return 'email is empty';
+                          } else if (!isEmailValid(value)) {
+                            debugPrint('email is invalid');
+                            return 'email is invalid';
                           }
                           return null;
                         },
@@ -142,8 +162,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       //===== Button submit Login =====
                       InkWell(
                         onTap: () {
-                          debugPrint(emailController.text);
-                          debugPrint(passwordController.text);
+                          setState(() {
+                            login();
+                          });
                         },
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 5.0),
@@ -175,7 +196,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 20.0),
-
                 //===== Button Link Register =====
                 Row(
                   children: [
@@ -185,7 +205,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(width: 10.0),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterScreen(),
+                            ),
+                          );
+                        });
+                      },
                       child: Text(
                         'Sign Up',
                         style: TextStyle(
