@@ -42,6 +42,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                 ),
+                //===== Form Login =====
+                Form(
+                  child: Column(
+                    children: [
+                      //===== Text Field Email =====
+                      TextFormField(),
+                      SizedBox(height: 15.0),
+                      //===== Text Field Password =====
+                      TextFormField(),
+                      SizedBox(height: 15.0),
+                      //===== Button submit Login =====
+                      InkWell(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 5.0),
+                          height: 55.0,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
