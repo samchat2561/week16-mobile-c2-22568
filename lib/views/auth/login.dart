@@ -34,10 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Text(
                         'Login',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          color: Colors.lightBlue,
-                        ),
+                        style: TextStyle(fontSize: 30.0, color: Colors.purple),
                       ),
                     ],
                   ),
@@ -47,7 +44,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Column(
                     children: [
                       //===== Text Field Email =====
-                      TextFormField(),
+                      TextFormField(
+                        decoration: InputDecoration(
+                          hintText: 'Enter your email or username',
+                          label: Text("Email or username"),
+                          labelStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18.0,
+                            fontFamily: "verdana_regular",
+                            fontWeight: FontWeight.w400,
+                          ),
+                          prefixIcon: Icon(Icons.email),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 15.0),
                       //===== Text Field Password =====
                       TextFormField(),
@@ -59,13 +82,52 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 55.0,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            color: Colors.lightBlue,
+                            color: Colors.purple,
                             borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.lock_open, color: Colors.white),
+                              SizedBox(width: 5.0),
+                              Text(
+                                'Sign in - App Account',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                  wordSpacing: 2.0,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ],
                   ),
+                ),
+                SizedBox(height: 20.0),
+
+                //===== Button Link Register =====
+                Row(
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: TextStyle(fontSize: 18.0, color: Colors.black54),
+                    ),
+                    const SizedBox(width: 10.0),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.orange,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
