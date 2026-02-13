@@ -8,6 +8,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool showPass = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -73,7 +75,47 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       SizedBox(height: 15.0),
                       //===== Text Field Password =====
-                      TextFormField(),
+                      TextFormField(
+                        obscureText: showPass ? false : true,
+                        decoration: InputDecoration(
+                          hintText: 'Enter your password',
+                          label: Text("Password"),
+                          labelStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 18.0,
+                            fontFamily: "verdana_regular",
+                            fontWeight: FontWeight.w400,
+                          ),
+                          prefixIcon: Icon(Icons.vpn_key_sharp),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                showPass = !showPass;
+                              });
+                            },
+                            icon: Icon(
+                              showPass
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                          ),
+
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                      ),
                       SizedBox(height: 15.0),
                       //===== Button submit Login =====
                       InkWell(
